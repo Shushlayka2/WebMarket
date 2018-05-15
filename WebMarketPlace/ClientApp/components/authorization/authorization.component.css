@@ -1,0 +1,11 @@
+﻿.auth-btns .btn {
+	margin-left: 10px;
+}
+
+.modal-content {
+	width: 400px;
+}
+
+#inputPasswordConfirm {
+	margin-top: 5px;
+}

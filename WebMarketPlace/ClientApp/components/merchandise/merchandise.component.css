@@ -1,0 +1,14 @@
+﻿.card-group {
+	padding: 5px;
+}
+
+.card{
+	margin: 5px;
+}
+.card-text {
+	height: 30px;
+}
+
+.card-img-top {
+	height: 300px;
+}

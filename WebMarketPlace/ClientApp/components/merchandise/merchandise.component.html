@@ -1,0 +1,12 @@
+﻿<div class="card-group">
+    <div *ngFor="let merchandise of merchandises$ | async">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src={{merchandise.imgSource}} alt="Card image cap" />
+            <div class="card-body">
+                <h5 class="card-title" >{{merchandise.name}}</h5>
+                <p class="card-text">{{merchandise.description}}</p>
+                <a href="#" class="btn btn-primary">More</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+﻿<div class="modal fade" id="authorizationForm" tabindex="-1" role="dialog" aria-labelledby="authorizationForm" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="logIn-tab" data-toggle="tab" href="#logIn" role="tab" aria-controls="logIn" aria-selected="true">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="signUp-tab" data-toggle="tab" href="#signUp" role="tab" aria-controls="signUp" aria-selected="false">Sign Up</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="logIn" role="tabpanel" aria-labelledby="logIn-tab">
+                    <div class="modal-header justify-content-between">
+                        <div> <img src="../../../Images/user_icon.jpg" width="30" height="30" alt="" /> </div>
+                        <div> <h5 class="modal-title" id="authorizationLabel">Authorization</h5> </div>
+                        <div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="inputEmail">E-mail address</label>
+                                <input type="text" class="form-control" id="inputEmail" [(ngModel)]="login.email" name="Email" placeholder="Enter E-mail">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword">Password</label>
+                                <input type="password" class="form-control" id="inputPassword" [(ngModel)]="login.password" name="Password" placeholder="Enter password">
+                            </div>
+                            <div class="auth-btns form-inline justify-content-between">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="checkOut" />
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" (click)="sendLogInData()" >Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="signUp" role="tabpanel" aria-labelledby="signUp-tab">
+                    <div class="modal-header justify-content-between">
+                        <div> <img src="../../../Images/user_icon.jpg" width="30" height="30" alt="" /> </div>
+                        <div> <h5 class="modal-title" id="registrationLabel">Registration</h5> </div>
+                        <div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-danger" role="alert" hidden={{isHidden}}>{{responseError}}</div>
+                        <form>
+                            <div class="form-group">
+                                <label for="inputFN">First name</label>
+                                <input type="text" class="form-control" id="inputFN" [(ngModel)]="register.name" name="Name" placeholder="Enter your first name">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail_r">E-mail address</label>
+                                <input type="text" class="form-control" id="inputEmail_r" [(ngModel)]="register.email" name="Email" placeholder="Enter your E-mail">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword_r">Password</label>
+                                <input type="password" class="form-control" id="inputPassword_r" [(ngModel)]="register.password" name="Password" placeholder="Enter password">
+                                <input type="password" class="form-control" id="inputPasswordConfirm" [(ngModel)]="register.confirmpassword" name="Confirmpassword" placeholder="Confirm entered password">
+                            </div>
+                            <div class="auth-btns form-inline justify-content-end">
+                                <div>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" (click)="sendRegisterData()">Sign Up</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+</div>

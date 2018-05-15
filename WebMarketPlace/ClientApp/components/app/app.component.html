@@ -1,0 +1,6 @@
+﻿<div class="container">
+    <div *ngIf="!isAuthorized"><navigation></navigation></div>
+    <div *ngIf="isAuthorized"><navigation_authorized></navigation_authorized></div>
+    <merchandise></merchandise>
+    <authorization (onAuthorized)="onAuthorized($event)"></authorization>
+</div>

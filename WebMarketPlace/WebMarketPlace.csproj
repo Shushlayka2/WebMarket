@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ClientApp\app\**" />
+    <Content Remove="ClientApp\app\**" />
+    <EmbeddedResource Remove="ClientApp\app\**" />
+    <None Remove="ClientApp\app\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\components\authorization\authorization.component.ts" />
+    <None Remove="ClientApp\components\authorization\authorization.service.ts" />
+    <None Remove="ClientApp\components\authorization\login.ts" />
+    <None Remove="ClientApp\components\authorization\register.ts" />
+    <None Remove="ClientApp\components\merchandise\merchandise.service.ts" />
+    <None Remove="ClientApp\components\merchandise\merchandise.ts" />
+    <None Remove="ClientApp\components\navigation\navigation.component.ts" />
+    <None Remove="ClientApp\components\navigation_authorized\navigation_authorized.component.ts" />
+    <None Remove="ClientApp\main.ts" />
+    <None Remove="ClientApp\polyfills.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\authorization\authorization.component.ts" />
+    <TypeScriptCompile Include="ClientApp\components\authorization\authorization.service.ts" />
+    <TypeScriptCompile Include="ClientApp\components\authorization\login.ts" />
+    <TypeScriptCompile Include="ClientApp\components\authorization\register.ts" />
+    <TypeScriptCompile Include="ClientApp\components\merchandise\merchandise.service.ts" />
+    <TypeScriptCompile Include="ClientApp\components\merchandise\merchandise.ts" />
+    <TypeScriptCompile Include="ClientApp\components\navigation\navigation.component.ts" />
+    <TypeScriptCompile Include="ClientApp\components\navigation_authorized\navigation_authorized.component.ts" />
+    <TypeScriptCompile Include="ClientApp\main.ts" />
+    <TypeScriptCompile Include="ClientApp\polyfills.ts" />
+  </ItemGroup>
+
+</Project>
