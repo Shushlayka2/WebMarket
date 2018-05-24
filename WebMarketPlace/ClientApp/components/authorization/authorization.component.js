@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthorizationService } from './authorization.service';
 import { Register } from './register';
 import { Login } from './login';
@@ -16,22 +16,38 @@ var AuthorizationComponent = /** @class */ (function () {
         this.authorizationService = authorizationService;
         this.register = new Register();
         this.login = new Login();
-        this.isHidden = "hidden";
-        this.onAuthorized = new EventEmitter();
+        this.is_hidden = "hidden";
+        this.authorized = new EventEmitter();
     }
     AuthorizationComponent.prototype.sendRegisterData = function () {
         var _this = this;
-        this.authorizationService.sendRegisterData(this.register).subscribe(function (response) { return _this.responseError = response; });
-        this.onAuthorized.emit();
-        this.isHidden = "";
+        this.authorizationService.sendRegisterData(this.register)
+            .subscribe(function (data) {
+            sessionStorage.setItem('access_token', data);
+            _this.is_hidden = "hidden";
+            console.log('1');
+            _this.authorized.emit();
+        }, function (error) {
+            _this.response_error_msg = error;
+            _this.is_hidden = "";
+        });
     };
     AuthorizationComponent.prototype.sendLogInData = function () {
-        this.authorizationService.sendLogInData(this.login).subscribe();
+        var _this = this;
+        this.authorizationService.sendLogInData(this.login)
+            .subscribe(function (data) {
+            sessionStorage.setItem('access_token', data);
+            _this.is_hidden = "hidden";
+            _this.authorized.emit();
+        }, function (error) {
+            _this.response_error_msg = error;
+            _this.is_hidden = "";
+        });
     };
     __decorate([
         Output(),
         __metadata("design:type", Object)
-    ], AuthorizationComponent.prototype, "onAuthorized", void 0);
+    ], AuthorizationComponent.prototype, "authorized", void 0);
     AuthorizationComponent = __decorate([
         Component({
             selector: 'authorization',

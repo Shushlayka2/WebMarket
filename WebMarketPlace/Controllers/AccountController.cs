@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using WebMarketPlace.Models;
 using WebMarketPlace.ViewModels;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace WebMarketPlace.Controllers
 {
-    public class AccountController : Controller
-    {
+	public class AccountController : Controller
+	{
 		MarketDBContext db;
 
 		public AccountController(MarketDBContext context)
@@ -23,36 +22,46 @@ namespace WebMarketPlace.Controllers
 			db = context;
 		}
 
+		[HttpGet]
+		[Authorize(AuthenticationSchemes ="Bearer")]
+		public async Task<IActionResult> GetCurrentUser()
+		{
+			User user = await db.Users.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
+			return Json(user);	
+		}
+
 		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Login(LoginModel model)
+		[Authorize(AuthenticationSchemes = "Bearer")]
+		public IActionResult UpdateUser([FromBody]User userInfo)
+		{
+			User user = (from u in db.Users
+						 where u.Email == User.Identity.Name
+						 select u).First();
+			user.Name = userInfo.Name ?? user.Name;
+			user.Address = userInfo.Address ?? user.Address;
+			user.TelephoneNum = userInfo.TelephoneNum ?? user.TelephoneNum;
+			db.Users.Update(user);
+			db.SaveChanges();
+			return Ok();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Login([FromBody]LoginModel model)
 		{
 			if (ModelState.IsValid)
 			{
 				User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
 				if (user != null)
 				{
-					await Authenticate(model.Email);
-
-					return RedirectToAction("Index", "Home");
+					var identity = GetIdentity(model.Email);
+					return SendToken(identity);
 				}
-				ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+				ModelState.AddModelError("", "Incorrect login or passwords");
 			}
-			return View(model);
-		}
-
-		private async Task Authenticate(string userName)
-		{
-			var claims = new List<Claim>
-			{
-				new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
-			};
-			ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+			return BadRequest(ModelState);
 		}
 
 		[HttpPost]
-		//[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Register([FromBody] RegisterModel  model)
 		{
 			if (ModelState.IsValid)
@@ -62,15 +71,36 @@ namespace WebMarketPlace.Controllers
 				{
 					db.Users.Add(new User { Email = model.Email, Password = model.Password, Name = model.Name });
 					await db.SaveChangesAsync();
-
-					await Authenticate(model.Email);
-
-					return Ok();
+					var identity = GetIdentity(model.Email);
+					return SendToken(identity);
 				}
-				else
-					ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+				ModelState.AddModelError("", "You are registered yet");
 			}
 			return BadRequest(ModelState);
+		}
+
+		private ClaimsIdentity GetIdentity(string userName)
+		{
+			var claims = new List<Claim>
+			{
+				new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+			};
+			ClaimsIdentity id = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+			return id;
+		}
+
+		private IActionResult SendToken(ClaimsIdentity identity)
+		{
+			var now = DateTime.UtcNow;
+			var jwt = new JwtSecurityToken(
+				issuer: AuthOptions.ISSUER,
+				audience: AuthOptions.AUDIENCE,
+				notBefore: now,
+				claims: identity.Claims,
+				expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+				signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+			return Json(encodedJwt);
 		}
 	}
 }

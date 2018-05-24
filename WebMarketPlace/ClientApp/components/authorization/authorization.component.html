@@ -21,6 +21,7 @@
                         </div>
                     </div>
                     <div class="modal-body">
+                        <div class="alert alert-danger" role="alert" hidden={{is_hidden}}>{{response_error_msg}}</div>
                         <form>
                             <div class="form-group">
                                 <label for="inputEmail">E-mail address</label>
@@ -31,13 +32,13 @@
                                 <input type="password" class="form-control" id="inputPassword" [(ngModel)]="login.password" name="Password" placeholder="Enter password">
                             </div>
                             <div class="auth-btns form-inline justify-content-between">
-                                <div class="form-group form-check">
+                                <div class="form-group form-check"> <!--TODO: Realize Check Out configuration-->
                                     <input type="checkbox" class="form-check-input" id="checkOut" />
                                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
                                 </div>
                                 <div>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" (click)="sendLogInData()" >Submit</button>
+                                    <button type="submit" class="btn btn-primary" (click)="sendLogInData()">Submit</button> <!--To Do: Realize Closing-->
                                 </div>
                             </div>
                         </form>
@@ -54,7 +55,7 @@
                         </div>
                     </div>
                     <div class="modal-body">
-                        <div class="alert alert-danger" role="alert" hidden={{isHidden}}>{{responseError}}</div>
+                        <div class="alert alert-danger" role="alert" hidden={{is_hidden}}>{{response_error_msg}}</div>
                         <form>
                             <div class="form-group">
                                 <label for="inputFN">First name</label>
@@ -72,7 +73,7 @@
                             <div class="auth-btns form-inline justify-content-end">
                                 <div>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" (click)="sendRegisterData()">Sign Up</button>
+                                    <button type="submit" class="btn btn-primary" (click)="sendRegisterData()">Sign Up</button> <!--TODO: Realize Closing-->
                                 </div>
                             </div>
                         </form>

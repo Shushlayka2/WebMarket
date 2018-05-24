@@ -2,8 +2,8 @@
 import { Observable } from 'rxjs/Observable';
 
 import { MerchandiseService } from './merchandise.service';
-import { Merchandise } from './merchandise';
 
+import { Merchandise } from './merchandise';
 
 @Component({
     selector: 'merchandise',
@@ -13,6 +13,7 @@ import { Merchandise } from './merchandise';
 })
 export class MerchandiseComponent implements OnInit{
 
+    is_authorized: boolean;
     merchandises$: Observable<Merchandise[]>;
 
     constructor(private merchandiseService: MerchandiseService) { }

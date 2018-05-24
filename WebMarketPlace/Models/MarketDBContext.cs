@@ -1,8 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebMarketPlace.Models
 {
@@ -15,5 +11,22 @@ namespace WebMarketPlace.Models
 		public MarketDBContext(DbContextOptions<MarketDBContext> options) 
 			: base(options)
 		{ }
-    }
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Basket>()
+		   .HasKey(t => new { t.MerchandiseId, t.UserId });
+
+			modelBuilder.Entity<Basket>()
+			.HasOne(sc => sc.Merchandise)
+			.WithMany(s => s.Basket)
+			.HasForeignKey(sc => sc.MerchandiseId);
+
+			modelBuilder.Entity<Basket>()
+			.HasOne(sc => sc.User)
+			.WithMany(c => c.Basket)
+			.HasForeignKey(sc => sc.UserId);
+		}
+
+	}
 }

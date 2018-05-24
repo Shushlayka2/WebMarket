@@ -3,6 +3,14 @@
 	position: relative;
 }
 
+.nav {
+	padding-left: 20px;
+}
+
+#basketImg {
+	margin-bottom: 8px;
+}
+
 authotization {
 	margin: 0;
 	position: absolute;

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Threading.Tasks;
 
 namespace WebMarketPlace.Models
 {
@@ -12,15 +9,29 @@ namespace WebMarketPlace.Models
 	{
 		public int Id { get; set; }
 
-		[DataMember]
 		[Required]
+		[DataMember]
 		public string Email { get; set; }
 
-		[DataMember]
 		[Required]
 		public string Password { get; set; }
 
+		[Required]
 		[DataMember]
 		public string Name { get; set; }
+
+		[DataMember]
+		public string Address { get; set; }
+
+		[DataMember]
+		public string TelephoneNum { get; set; }
+
+		[DataMember]
+		public List<Basket> Basket { get; set; }
+
+		public User()
+		{
+			Basket = new List<Basket>();
+		}
 	}
 }

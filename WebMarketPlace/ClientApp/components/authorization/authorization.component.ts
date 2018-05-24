@@ -1,8 +1,9 @@
-﻿import { Component, Output, EventEmitter } from '@angular/core';
+﻿import { Component, EventEmitter, Output } from '@angular/core';
+
 import { AuthorizationService } from './authorization.service';
+import { UserService } from '../user/user.service';
 import { Register } from './register';
 import { Login } from './login';
-import { HttpResponse } from '@angular/common/http';
 
 @Component({
     selector: 'authorization',
@@ -11,22 +12,42 @@ import { HttpResponse } from '@angular/common/http';
     providers: [AuthorizationService]
 })
 export class AuthorizationComponent {
+
     register: Register = new Register();
     login: Login = new Login();
-    isHidden: string = "hidden";
-    responseError: string;
+    response_error_msg: string;
+    is_hidden: string = "hidden";
 
-    @Output() onAuthorized = new EventEmitter();
+    @Output() authorized = new EventEmitter();
 
     constructor(private authorizationService: AuthorizationService) { }
 
     sendRegisterData(): void {
-        this.authorizationService.sendRegisterData(this.register).subscribe((response) => this.responseError = response);
-        this.onAuthorized.emit();
-        this.isHidden = "";
+        this.authorizationService.sendRegisterData(this.register)
+            .subscribe(
+            data => {
+                sessionStorage.setItem('access_token', data);
+                this.is_hidden = "hidden";
+                console.log('1');
+                this.authorized.emit();
+            },
+            error => {
+                this.response_error_msg = error;
+                this.is_hidden = "";
+            });
     }
 
     sendLogInData(): void {
-        this.authorizationService.sendLogInData(this.login).subscribe();
+        this.authorizationService.sendLogInData(this.login)
+            .subscribe(
+            data => {
+                sessionStorage.setItem('access_token', data);
+                this.is_hidden = "hidden";
+                this.authorized.emit();
+            },
+            error => {
+                this.response_error_msg = error;
+                this.is_hidden = "";
+            });    
     }
 }

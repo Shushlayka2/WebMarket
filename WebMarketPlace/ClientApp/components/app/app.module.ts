@@ -2,17 +2,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { MerchandiseComponent } from '../merchandise/merchandise.component';
-import { NavigationComponent } from '../navigation/navigation.component';
-import { NavigationComponent_Authorized } from '../navigation_authorized/navigation_authorized.component';
 import { AuthorizationComponent } from '../authorization/authorization.component';
-
+import { BasketComponent } from '../basket/basket.component';
+import { UserComponent } from '../user/user.component';
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, HttpClientModule],
-    declarations: [AppComponent, MerchandiseComponent, NavigationComponent, NavigationComponent_Authorized, AuthorizationComponent],
+    imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
+    declarations: [AppComponent, MerchandiseComponent, AuthorizationComponent, BasketComponent, UserComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

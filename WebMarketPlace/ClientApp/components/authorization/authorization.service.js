@@ -9,18 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+import { catchError } from 'rxjs/operators';
 var AuthorizationService = /** @class */ (function () {
     function AuthorizationService(http) {
         this.http = http;
-        this.registerUrl = 'http://localhost:64384/Account/Register';
+        this.register_url = 'http://localhost:64384/Account/Register';
+        this.login_url = 'http://localhost:64384/Account/Login';
     }
     AuthorizationService.prototype.sendRegisterData = function (registerData) {
-        return this.http.post(this.registerUrl, registerData, { observe: 'response' })
-            .pipe(map(function (response) { return response.statusText; }), catchError(function (err, response) { return response; }));
+        return this.http.post(this.register_url, registerData)
+            .pipe(catchError(this.handleError));
     };
     AuthorizationService.prototype.sendLogInData = function (loginData) {
-        return this.http.post(this.registerUrl, loginData);
+        return this.http.post(this.login_url, loginData)
+            .pipe(catchError(this.handleError));
+    };
+    AuthorizationService.prototype.handleError = function (error) {
+        return Observable.throw(error.message || "Server error!");
     };
     AuthorizationService = __decorate([
         Injectable(),

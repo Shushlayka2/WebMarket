@@ -13,16 +13,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\app\app-routing.module.ts" />
     <None Remove="ClientApp\components\authorization\authorization.component.ts" />
     <None Remove="ClientApp\components\authorization\authorization.service.ts" />
     <None Remove="ClientApp\components\authorization\login.ts" />
     <None Remove="ClientApp\components\authorization\register.ts" />
+    <None Remove="ClientApp\components\authorization\response.ts" />
+    <None Remove="ClientApp\components\basket\basket.component.ts" />
     <None Remove="ClientApp\components\merchandise\merchandise.service.ts" />
     <None Remove="ClientApp\components\merchandise\merchandise.ts" />
-    <None Remove="ClientApp\components\navigation\navigation.component.ts" />
-    <None Remove="ClientApp\components\navigation_authorized\navigation_authorized.component.ts" />
+    <None Remove="ClientApp\components\user\user.component.ts" />
+    <None Remove="ClientApp\components\user\user.ts" />
+    <None Remove="ClientApp\intermediate.service.ts" />
     <None Remove="ClientApp\main.ts" />
     <None Remove="ClientApp\polyfills.ts" />
+    <None Remove="ClientApp\user.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,16 +45,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\app\app-routing.module.ts" />
     <TypeScriptCompile Include="ClientApp\components\authorization\authorization.component.ts" />
     <TypeScriptCompile Include="ClientApp\components\authorization\authorization.service.ts" />
     <TypeScriptCompile Include="ClientApp\components\authorization\login.ts" />
     <TypeScriptCompile Include="ClientApp\components\authorization\register.ts" />
+    <TypeScriptCompile Include="ClientApp\components\authorization\response.ts" />
+    <TypeScriptCompile Include="ClientApp\components\basket\basket.component.ts" />
     <TypeScriptCompile Include="ClientApp\components\merchandise\merchandise.service.ts" />
     <TypeScriptCompile Include="ClientApp\components\merchandise\merchandise.ts" />
-    <TypeScriptCompile Include="ClientApp\components\navigation\navigation.component.ts" />
-    <TypeScriptCompile Include="ClientApp\components\navigation_authorized\navigation_authorized.component.ts" />
+    <TypeScriptCompile Include="ClientApp\components\user\user.component.ts" />
+    <TypeScriptCompile Include="ClientApp\components\user\user.ts" />
+    <TypeScriptCompile Include="ClientApp\intermediate.service.ts" />
     <TypeScriptCompile Include="ClientApp\main.ts" />
     <TypeScriptCompile Include="ClientApp\polyfills.ts" />
+    <TypeScriptCompile Include="ClientApp\components\user\user.service.ts" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,1 @@
+{"version":3,"file":"basket.component.js","sourceRoot":"","sources":["basket.component.ts"],"names":[],"mappings":";;;;;;AAAA,OAAO,EAAE,SAAS,EAAU,MAAM,eAAe,CAAC;AAOlD;IAAA;IAGA,CAAC;IADG,kCAAQ,GAAR,cAAa,CAAC;IAFL,eAAe;QAL3B,SAAS,CAAC;YACP,QAAQ,EAAE,QAAQ;YAClB,WAAW,EAAE,yBAAyB;YACtC,SAAS,EAAE,CAAC,wBAAwB,CAAC;SACxC,CAAC;OACW,eAAe,CAG3B;IAAD,sBAAC;CAAA,AAHD,IAGC;SAHY,eAAe"}

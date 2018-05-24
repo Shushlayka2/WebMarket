@@ -5,18 +5,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Component } from '@angular/core';
-var NavigationComponent_Authorized = /** @class */ (function () {
-    function NavigationComponent_Authorized() {
-        this.userName = "Hello";
+var BasketComponent = /** @class */ (function () {
+    function BasketComponent() {
     }
-    NavigationComponent_Authorized = __decorate([
+    BasketComponent.prototype.ngOnInit = function () { };
+    BasketComponent = __decorate([
         Component({
-            selector: 'navigation_authorized',
-            templateUrl: './navigation_authorized.component.html',
-            styleUrls: ['./navigation_authorized.component.css']
+            selector: 'basket',
+            templateUrl: './basket.component.html',
+            styleUrls: ['./basket.component.css']
         })
-    ], NavigationComponent_Authorized);
-    return NavigationComponent_Authorized;
+    ], BasketComponent);
+    return BasketComponent;
 }());
-export { NavigationComponent_Authorized };
-//# sourceMappingURL=navigation_authorized.component.js.map
+export { BasketComponent };
+//# sourceMappingURL=basket.component.js.map

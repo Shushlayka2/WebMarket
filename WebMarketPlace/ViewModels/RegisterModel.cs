@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebMarketPlace.ViewModels
 {
     public class RegisterModel
     {
-		[Required(ErrorMessage = "Укажите ваше имя")]
+		[Required(ErrorMessage = "Name is not specified")]
 		public string Name { get; set; }
 
-		[Required(ErrorMessage = "Не указан Email")]
+		[Required(ErrorMessage = "Email is not specified")]
 		public string Email { get; set; }
 
-		[Required(ErrorMessage = "Не указан пароль")]
+		[Required(ErrorMessage = "Password is not specified")]
 		[DataType(DataType.Password)]
 		public string Password { get; set; }
 
 		[DataType(DataType.Password)]
-		[Compare("Password", ErrorMessage = "Пароль введен неверно")]
+		[Compare("Password", ErrorMessage = "Passwords don't match")]
 		public string Confirmpassword { get; set; }
 	}
 }

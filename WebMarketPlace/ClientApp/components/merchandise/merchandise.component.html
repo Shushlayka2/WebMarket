@@ -5,7 +5,7 @@
             <div class="card-body">
                 <h5 class="card-title" >{{merchandise.name}}</h5>
                 <p class="card-text">{{merchandise.description}}</p>
-                <a href="#" class="btn btn-primary">More</a>
+                <button *ngIf="is_authorized" class="btn btn-primary">Purchase</button>
             </div>
         </div>
     </div>
