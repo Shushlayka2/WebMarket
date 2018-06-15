@@ -6,5 +6,4 @@ export class User {
     name: string;
     address: string;
     telephoneNum: string;
-    basket: Merchandise[];
 }

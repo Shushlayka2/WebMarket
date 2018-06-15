@@ -1,13 +1,13 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { UserService } from './user.service';
 import { User } from './user';
 
 @Component({
     selector: 'user',
     templateUrl: './user.component.html',
-    styleUrls: ['./user.component.css'],
-    providers: [UserService]
+    styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
 
@@ -43,9 +43,16 @@ export class UserComponent implements OnInit {
     }
 
     updateUser() {
-        this.userService.updateUser(this.user).subscribe();
+        this.userService.updateUser(this.user).subscribe(() => {
+            this.userService.updatedToggle();
+        });
         this.isHidden = "";
         this.editorIsHidden = "hidden";
         this.updatable = "readonly";
+    }
+
+    logout() {
+        sessionStorage.removeItem('access_token');
+        this.userService.authorizedToggle();
     }
 }

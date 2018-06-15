@@ -1,18 +1,27 @@
-﻿<table class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Item</th>
-            <th scope="col">Price</th>
-            <th scope="col">Amount</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of items">
-            <th scope="row"></th>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
+﻿<div class="form-inline">
+    <h3 id="total_price">Total price: {{total_price}}</h3>
+    <button id="buy_button" class="btn btn-success" (click)="buyItems()">Buy Items</button>
+</div>
+
+<div class="alert alert-success" role="alert" hidden={{is_hidden}}>Congratulation! You bought selected items!</div>
+
+<div id="table_div">
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Item</th>
+                <th scope="col">Price</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let m of merchandise">
+                <th scope="row">1</th>
+                <td>{{m.name}}</td>
+                <td>{{m.price}}</td>
+                <td id="delete_button" (click)="deleteMerchandiseFromBasket(m)" class="btn">X</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

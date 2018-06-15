@@ -1,42 +1,45 @@
-﻿import { Component, /*OnDestroy, OnInit*/ } from '@angular/core';
-//import { Subscription } from 'rxjs';
+﻿import { Component, OnInit } from '@angular/core';
 
 import { UserService } from '../user/user.service';
+import { MerchandiseService } from '../merchandise/merchandise.service';
 import { User } from '../user/user';
-
 
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
-    styleUrls: ['app.component.css'],
-    providers: [UserService]
+    styleUrls: ['app.component.css']
 })
 
-export class AppComponent /*implements OnDestroy, OnInit*/{
+export class AppComponent implements OnInit{
 
     user: User = new User();
-    is_authorized: boolean;
+    is_authorized: boolean = false;
+    merchandise_count: number = 0;
 
-    constructor(private userService: UserService) { }
+    constructor(private userService: UserService, private merchandiseService: MerchandiseService) { }
 
-    //TODO: Change it to service interaction
     onAuthorized() {
-        this.is_authorized = true;
-        this.userService.getUser().subscribe(user => this.user = user);
+        this.is_authorized = this.userService.is_authorized;
+        if (this.is_authorized)
+            this.userService.getUser().subscribe(user => this.user = user);
     }
 
-    //subscription: Subscription;
+    ngOnInit() {
+        this.userService.updated.subscribe(() => {
+            this.userService.getUser().subscribe(user => this.user = user);           
+        });
 
-    //ngOnInit() {
-    //    this.subscription = this.userService.userSource.subscribe(
-    //        user => {
-    //            console.log('entered');
-    //            this.user = user;
-    //            console.log(this.user);
-    //        });
-    //}
+        this.userService.authorized.subscribe(() => {
+            this.onAuthorized();
+        });
 
-    //ngOnDestroy(): void {
-    //    this.subscription.unsubscribe();
-    //}
+        this.merchandiseService.counted.subscribe(() => {
+            this.merchandiseService.getBasketItems().subscribe(merchandises => this.merchandise_count = merchandises.length);
+        });
+    }
+
+    logout() {
+        sessionStorage.removeItem('access_token');
+        this.userService.authorizedToggle();
+    }
 }

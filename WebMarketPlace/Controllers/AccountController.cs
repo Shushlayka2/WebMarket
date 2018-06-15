@@ -38,11 +38,12 @@ namespace WebMarketPlace.Controllers
 						 where u.Email == User.Identity.Name
 						 select u).First();
 			user.Name = userInfo.Name ?? user.Name;
+			user.Email = userInfo.Email ?? user.Email;
 			user.Address = userInfo.Address ?? user.Address;
 			user.TelephoneNum = userInfo.TelephoneNum ?? user.TelephoneNum;
 			db.Users.Update(user);
 			db.SaveChanges();
-			return Ok();
+			return Json(user);
 		}
 
 		[HttpPost]

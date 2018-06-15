@@ -1,18 +1,25 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, EventEmitter, Output } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { User } from './user';
 
-//import { Subject } from 'rxjs';
-
 @Injectable()
 export class UserService {
+
     userUrl = 'http://localhost:64384/Account/';
+    is_authorized: boolean = false;
+    @Output() updated = new EventEmitter();
+    @Output() authorized = new EventEmitter();
 
-    //user: User = new User();
+    updatedToggle() {
+        this.updated.emit();
+    }
 
-    //public userSource = new Subject<any>();
+    authorizedToggle() {
+        this.is_authorized = !this.is_authorized;
+        this.authorized.emit();
+    }
 
     constructor(private http: HttpClient) { }
 
@@ -20,7 +27,7 @@ export class UserService {
         return this.http.get<User>(this.userUrl + 'GetCurrentUser', { headers: new HttpHeaders({ 'Authorization': `Bearer ${sessionStorage.getItem('access_token')}` }) });
     }   
 
-    updateUser(user: User) {
-        return this.http.post(this.userUrl + 'UpdateUser', user, { headers: new HttpHeaders({ 'Authorization': `Bearer ${sessionStorage.getItem('access_token')}` }) });
+    updateUser(user: User): Observable<User> {
+        return this.http.post<User>(this.userUrl + 'UpdateUser', user, { headers: new HttpHeaders({ 'Authorization': `Bearer ${sessionStorage.getItem('access_token')}` }) });
     }
 }

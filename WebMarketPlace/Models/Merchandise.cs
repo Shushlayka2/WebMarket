@@ -7,6 +7,7 @@ namespace WebMarketPlace.Models
 	[DataContract]
     public class Merchandise
     {	
+		[DataMember]
 		public int Id { get; set; }
 
 		[Required]

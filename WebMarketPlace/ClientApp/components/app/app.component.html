@@ -1,5 +1,5 @@
 ﻿<div class="container">
-    <nav class="nav navbar-light bg-light justify-content-between">
+    <nav class="nav navbar-light bg-transparent justify-content-between">
         <div>
             <a class="navbar-brand" routerLink="/">
                 <img src="../../../Images/devices_icon.jpg" width="30" height="30" alt="" class="d-inline-block align-top" />
@@ -8,14 +8,27 @@
             <a *ngIf="is_authorized" class="navbar-brand btn" routerLink="/basket">
                 <img id="basketImg" src="../../../Images/basket.png" width="30" height="30" alt="" />
                 Basket
-                <span class="badge badge-primary badge-pill">0</span> <!--Заглушка-->
+                <span class="badge badge-primary badge-pill">{{merchandise_count}}</span>
             </a>
         </div>
         <div>
-            <a *ngIf="is_authorized" class="navbar-brand btn" routerLink="/user">
-                <img src="../../../Images/user_icon.jpg" width="30" height="30" alt=""/>
-                {{user.name}}
-            </a>
+            <div *ngIf="is_authorized" class="dropdown">
+                <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="../../../Images/user_icon.jpg" width="30" height="30" alt="" />
+                    {{user.name}}
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="navbar-brand dropdown-item btn" routerLink="/user">
+                        <img src="../../../Images/settings.png" width="25" height="25" alt="" />
+                        Settings
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="navbar-brand dropdown-item btn" (click)="logout()" routerLink="/">
+                        <img src="../../../Images/logout.png" width="25" height="25" alt="" />
+                        LogOut
+                    </a>
+                </div>
+            </div>
             <a *ngIf="!is_authorized" class="navbar-brand btn" data-toggle="modal" data-target="#authorizationForm">
                 <img src="../../../Images/user_icon.jpg" width="30" height="30" alt="" />
                 Sign in
@@ -23,5 +36,5 @@
         </div>
     </nav>
     <router-outlet></router-outlet>
-    <authorization (authorized)="onAuthorized($event)"></authorization>
+    <authorization></authorization>
 </div>

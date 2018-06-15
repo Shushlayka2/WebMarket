@@ -9,24 +9,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { MerchandiseService } from './merchandise.service';
+import { UserService } from '../user/user.service';
 var MerchandiseComponent = /** @class */ (function () {
-    function MerchandiseComponent(merchandiseService) {
+    function MerchandiseComponent(merchandiseService, userService) {
         this.merchandiseService = merchandiseService;
+        this.userService = userService;
+        this.is_authorized = false;
     }
     MerchandiseComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.is_authorized = this.userService.is_authorized;
+        this.userService.authorized.subscribe(function () {
+            _this.authorizedSwitch();
+        });
         this.getMerchandises();
     };
     MerchandiseComponent.prototype.getMerchandises = function () {
         this.merchandises$ = this.merchandiseService.getMerchandises();
     };
+    MerchandiseComponent.prototype.authorizedSwitch = function () {
+        this.is_authorized = this.userService.is_authorized;
+    };
+    MerchandiseComponent.prototype.addToBasket = function (merchandise) {
+        var _this = this;
+        this.merchandiseService.addMerchandiseToBasket(merchandise).subscribe(function () { return _this.merchandiseService.countedToggle(); });
+    };
     MerchandiseComponent = __decorate([
         Component({
             selector: 'merchandise',
             templateUrl: './merchandise.component.html',
-            styleUrls: ['./merchandise.component.css'],
-            providers: [MerchandiseService]
+            styleUrls: ['./merchandise.component.css']
         }),
-        __metadata("design:paramtypes", [MerchandiseService])
+        __metadata("design:paramtypes", [MerchandiseService, UserService])
     ], MerchandiseComponent);
     return MerchandiseComponent;
 }());

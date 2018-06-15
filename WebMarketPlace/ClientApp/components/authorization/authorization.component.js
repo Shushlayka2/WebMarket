@@ -7,17 +7,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthorizationService } from './authorization.service';
+import { MerchandiseService } from '../merchandise/merchandise.service';
+import { UserService } from '../user/user.service';
 import { Register } from './register';
 import { Login } from './login';
 var AuthorizationComponent = /** @class */ (function () {
-    function AuthorizationComponent(authorizationService) {
+    function AuthorizationComponent(authorizationService, userService, merchandiseService) {
         this.authorizationService = authorizationService;
+        this.userService = userService;
+        this.merchandiseService = merchandiseService;
         this.register = new Register();
         this.login = new Login();
         this.is_hidden = "hidden";
-        this.authorized = new EventEmitter();
     }
     AuthorizationComponent.prototype.sendRegisterData = function () {
         var _this = this;
@@ -25,8 +28,8 @@ var AuthorizationComponent = /** @class */ (function () {
             .subscribe(function (data) {
             sessionStorage.setItem('access_token', data);
             _this.is_hidden = "hidden";
-            console.log('1');
-            _this.authorized.emit();
+            _this.userService.authorizedToggle();
+            _this.merchandiseService.countedToggle();
         }, function (error) {
             _this.response_error_msg = error;
             _this.is_hidden = "";
@@ -38,16 +41,13 @@ var AuthorizationComponent = /** @class */ (function () {
             .subscribe(function (data) {
             sessionStorage.setItem('access_token', data);
             _this.is_hidden = "hidden";
-            _this.authorized.emit();
+            _this.userService.authorizedToggle();
+            _this.merchandiseService.countedToggle();
         }, function (error) {
             _this.response_error_msg = error;
             _this.is_hidden = "";
         });
     };
-    __decorate([
-        Output(),
-        __metadata("design:type", Object)
-    ], AuthorizationComponent.prototype, "authorized", void 0);
     AuthorizationComponent = __decorate([
         Component({
             selector: 'authorization',
@@ -55,7 +55,7 @@ var AuthorizationComponent = /** @class */ (function () {
             styleUrls: ['authorization.component.css'],
             providers: [AuthorizationService]
         }),
-        __metadata("design:paramtypes", [AuthorizationService])
+        __metadata("design:paramtypes", [AuthorizationService, UserService, MerchandiseService])
     ], AuthorizationComponent);
     return AuthorizationComponent;
 }());

@@ -9,6 +9,7 @@ namespace WebMarketPlace
 		public const string AUDIENCE = "http://localhost:64385/";
 		const string KEY = "542541241241545154655424";
 		public const int LIFETIME = 30;
+
 		public static SymmetricSecurityKey GetSymmetricSecurityKey()
 		{
 			return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));

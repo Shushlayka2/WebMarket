@@ -10,9 +10,13 @@ import { AuthorizationComponent } from '../authorization/authorization.component
 import { BasketComponent } from '../basket/basket.component';
 import { UserComponent } from '../user/user.component';
 
+import { UserService } from '../user/user.service';
+import { MerchandiseService } from '../merchandise/merchandise.service';
+
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
     declarations: [AppComponent, MerchandiseComponent, AuthorizationComponent, BasketComponent, UserComponent],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    providers: [UserService, MerchandiseService]
 })
 export class AppModule { }

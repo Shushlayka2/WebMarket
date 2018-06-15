@@ -14,6 +14,8 @@ import { MerchandiseComponent } from '../merchandise/merchandise.component';
 import { AuthorizationComponent } from '../authorization/authorization.component';
 import { BasketComponent } from '../basket/basket.component';
 import { UserComponent } from '../user/user.component';
+import { UserService } from '../user/user.service';
+import { MerchandiseService } from '../merchandise/merchandise.service';
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -21,7 +23,8 @@ var AppModule = /** @class */ (function () {
         NgModule({
             imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
             declarations: [AppComponent, MerchandiseComponent, AuthorizationComponent, BasketComponent, UserComponent],
-            bootstrap: [AppComponent]
+            bootstrap: [AppComponent],
+            providers: [UserService, MerchandiseService]
         })
     ], AppModule);
     return AppModule;

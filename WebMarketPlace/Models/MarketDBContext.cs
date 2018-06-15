@@ -15,9 +15,6 @@ namespace WebMarketPlace.Models
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Basket>()
-		   .HasKey(t => new { t.MerchandiseId, t.UserId });
-
-			modelBuilder.Entity<Basket>()
 			.HasOne(sc => sc.Merchandise)
 			.WithMany(s => s.Basket)
 			.HasForeignKey(sc => sc.MerchandiseId);
@@ -27,6 +24,5 @@ namespace WebMarketPlace.Models
 			.WithMany(c => c.Basket)
 			.HasForeignKey(sc => sc.UserId);
 		}
-
 	}
 }

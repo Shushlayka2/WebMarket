@@ -37,17 +37,23 @@ var UserComponent = /** @class */ (function () {
         this.updatable = "readonly";
     };
     UserComponent.prototype.updateUser = function () {
-        this.userService.updateUser(this.user).subscribe();
+        var _this = this;
+        this.userService.updateUser(this.user).subscribe(function () {
+            _this.userService.updatedToggle();
+        });
         this.isHidden = "";
         this.editorIsHidden = "hidden";
         this.updatable = "readonly";
+    };
+    UserComponent.prototype.logout = function () {
+        sessionStorage.removeItem('access_token');
+        this.userService.authorizedToggle();
     };
     UserComponent = __decorate([
         Component({
             selector: 'user',
             templateUrl: './user.component.html',
-            styleUrls: ['./user.component.css'],
-            providers: [UserService]
+            styleUrls: ['./user.component.css']
         }),
         __metadata("design:paramtypes", [UserService])
     ], UserComponent);
