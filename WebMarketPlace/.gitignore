@@ -16,7 +16,7 @@ node_modules/**
 [Mm]igrations/**
 
 .tscache/**
-.vs/
+../.vs/
 
 *.mwb.bak	# MySQL Workbench .BAK file
 *.dbmdl		# VS2010 Database Projects cache file
